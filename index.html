@@ -1,176 +1,260 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Daily News</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder Website</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #eef2f3, #dfe9f3);
-            margin: 0;
-            padding: 20px;
-            transition: 0.4s;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085") no-repeat center center fixed;
+    background-size: cover;
+}
 
-        /* 🌙 Dark Mode */
-        body.dark {
-            background: #121212;
-            color: #f1f1f1;
-        }
+/* Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
 
-        body.dark .card {
-            background: #1e1e1e;
-        }
+/* Navbar */
+.navbar {
+    background: rgba(0,0,0,0.8);
+    padding: 12px;
+    text-align: center;
+}
 
-        body.dark table, 
-        body.dark th, 
-        body.dark td {
-            border-color: #555;
-        }
+.navbar a {
+    color: white;
+    margin: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        body.dark th {
-            background-color: #333;
-        }
+/* Sections */
+.section {
+    display: none;
+    width: 85%;
+    margin: 30px auto;
+    background: rgba(255,255,255,0.95);
+    padding: 20px;
+    border-radius: 10px;
+}
 
-        body.dark a {
-            color: lightblue;
-        }
+/* Active */
+.active {
+    display: block;
+}
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
+/* Dark Mode */
+.dark {
+    background: #121212;
+}
 
-        body.dark h1 {
-            color: #ffffff;
-        }
+.dark .section {
+    background: #1e1e1e;
+    color: white;
+}
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
+.dark input, .dark textarea, .dark select {
+    background: #2c2c2c;
+    color: white;
+}
 
-        .card {
-            background: white;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
+/* Inputs */
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+}
 
-        .card:hover {
-            transform: scale(1.02);
-        }
+/* Buttons */
+.btn {
+    padding: 10px;
+    margin-top: 10px;
+}
 
-        .breaking { color: red; }
-        .highlight { color: green; }
-        .weather { color: orange; }
-        .read { color: purple; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        a {
-            color: blue;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        a:hover {
-            color: darkblue;
-        }
-
-        /* Toggle Button */
-        .toggle-btn {
-            display: block;
-            margin: 15px auto;
-            padding: 10px 20px;
-            border: none;
-            background: #3498db;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-    </style>
+.download {
+    background: blue;
+    color: white;
+}
+</style>
 </head>
 
 <body>
 
-<h1>📰 My Daily News</h1>
+<!-- NAVBAR -->
+<div class="navbar">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('resume')">Resume Builder</a>
+    <a onclick="showPage('form')">Register</a>
+</div>
 
-<!-- ✅ Button added in correct place -->
-<button class="toggle-btn" onclick="toggleMode()">
-    🌙 Toggle Dark Mode
-</button>
+<!-- DARK MODE -->
+<div style="text-align:center; margin:10px;">
+    <button onclick="toggleMode()">🌙 Toggle Dark Mode</button>
+</div>
 
-<div class="container">
+<!-- HOME -->
+<div id="home" class="section active">
+    <h1>Welcome to Resume Builder</h1>
+    <p>Create your resume easily and register your details.</p>
+</div>
 
-    <div class="card">
-        <h2 class="breaking">Breaking News</h2>
-        <p><b>Technology</b> is growing rapidly. Students are learning <b>HTML, CSS, JavaScript</b>.</p>
+<!-- RESUME -->
+<div id="resume" class="section">
+
+<div style="display:flex; justify-content:space-between; align-items:center;">
+
+    <div style="width:70%;">
+        <h2 contenteditable="true">Your Name</h2>
+        <input type="text" placeholder="Email | Phone | Location">
+        <input type="text" placeholder="LinkedIn URL">
     </div>
 
-    <div class="card">
-        <h2 class="highlight">Today's Highlight</h2>
-        <p>Water = H<sub>2</sub>O and Einstein said E = mc<sup>2</sup>.</p>
-
-        <p style="font-size:12px;">Small text</p>
-        <p style="font-size:22px;"><b>Big text</b></p>
-
-        <p><del>Old news</del> → <b>Updated news!</b></p>
-    </div>
-
-    <div class="card">
-        <h2 class="weather">Weather Report</h2>
-
-        <table>
-            <tr>
-                <th>City</th>
-                <th>Temp</th>
-            </tr>
-            <tr>
-                <td>Bangalore</td>
-                <td>28°C</td>
-            </tr>
-            <tr>
-                <td>Delhi</td>
-                <td>35°C</td>
-            </tr>
-            <tr>
-                <td>Mumbai</td>
-                <td>30°C</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="card">
-        <h2 class="read">Read More</h2>
-        <p>
-            <a href="https://www.bbc.com/news" target="_blank">Visit BBC News</a>
-        </p>
+    <div style="width:25%; text-align:center;">
+        <label>Upload Photo</label>
+        <input type="file">
+        <br><br>
+        <img src="images.jpeg" width="120" height="120" style="border-radius:10px;">
     </div>
 
 </div>
 
-<!-- ✅ JavaScript added correctly -->
+<h3>Profile</h3>
+<textarea rows="3"></textarea>
+
+<h3>Education</h3>
+<input type="text" placeholder="Degree, College">
+<input type="text" placeholder="Year | CGPA">
+<input type="text" placeholder="PUC">
+<input type="text" placeholder="SSLC">
+
+<h3>Skills</h3>
+<textarea rows="2"></textarea>
+
+<h3>Internship</h3>
+<input type="text" placeholder="Company | Role">
+<textarea rows="2"></textarea>
+
+<h3>Projects</h3>
+<input type="text" placeholder="Project 1 Title">
+<textarea rows="2"></textarea>
+
+<input type="text" placeholder="Project 2 Title">
+<textarea rows="2"></textarea>
+
+<input type="text" placeholder="Project 3 Title">
+<textarea rows="2"></textarea>
+
+<h3>Certificates</h3>
+<textarea rows="2"></textarea>
+
+<h3>Languages</h3>
+<input type="text" placeholder="English, Kannada, Hindi">
+
+<button class="btn download" onclick="window.print()">Download Resume (PDF)</button>
+
+</div>
+
+<!-- FORM -->
+<div id="form" class="section">
+
+<h2>Student Registration Form</h2>
+
+<form>
+
+<fieldset>
+<legend>Personal Information</legend>
+
+<label>Name</label>
+<input type="text" required>
+
+<label>Email</label>
+<input type="email" required>
+
+<label>Mobile</label>
+<input type="tel">
+
+<label>Password</label>
+<input type="password" required>
+
+<label>Age</label>
+<input type="number">
+
+<label>DOB</label>
+<input type="date">
+
+<label>Gender</label><br>
+<input type="radio" name="g"> Male
+<input type="radio" name="g"> Female
+<br><br>
+
+</fieldset>
+
+<fieldset>
+<legend>General Info</legend>
+
+<label>Profile URL</label>
+<input type="url">
+
+<label>Upload PAN</label>
+<input type="file">
+
+<label>Rating</label>
+<input type="range" min="1" max="5">
+
+<label>Payment</label><br>
+<input type="checkbox"> Cash
+<input type="checkbox"> UPI
+<input type="checkbox"> RazorPay
+<br><br>
+
+<label>Tech Stack</label>
+<select multiple>
+<option>HTML</option>
+<option>CSS</option>
+<option>JavaScript</option>
+</select>
+
+</fieldset>
+
+<fieldset>
+<legend>Captcha</legend>
+<label>Enter: <b>AB12X</b></label>
+<input type="text" required>
+</fieldset>
+
+<label>Comments</label>
+<textarea rows="3"></textarea>
+
+<div style="display:flex; justify-content:space-between;">
+<input type="submit" class="btn">
+<input type="reset" class="btn">
+</div>
+
+</form>
+
+</div>
+
+<!-- SCRIPT -->
 <script>
-    function toggleMode() {
-        document.body.classList.toggle("dark");
-    }
+function showPage(page) {
+    let sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.classList.remove('active'));
+
+    document.getElementById(page).classList.add('active');
+}
+
+function toggleMode() {
+    document.body.classList.toggle("dark");
+}
 </script>
 
 </body>
